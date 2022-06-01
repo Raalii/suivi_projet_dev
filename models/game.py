@@ -9,7 +9,15 @@ class Game(object):
         
     
     def running(self) :
-        
+        # tant que le jeu se passe : 
+        # 
+        # Update les joueurs
+        # Update les projectiles (s'il y'en a)
+        # Update la map {
+        #       Check les collisions des projectiles, enlever les points de vie, etc....
+        # }
+        # Update le rendu pygame
+        #  
         
         pass
     

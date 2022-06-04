@@ -15,19 +15,23 @@ class Setup(object):
     
     
     def start(self):
-        player = Player()
+        player2 = Player(1)
+        player = Player(2)
         bg = pygame.image.load("assets/bg.jpg")
         running = True
         # Closing window
         while running:
             self.screen.blit(bg, (0, 0))
             self.screen.blit(player.image, player.rect)
+            self.screen.blit(player2.image, player2.rect)
             
             for projectile in player.all_projectiles :
                 projectile.move()
             
             player.all_projectiles.draw(self.screen)
             player.updatePos(self.screen)
+            
+            # Todo : change the event with the controllers (rasberry)
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     player.pressed[event.key] = True

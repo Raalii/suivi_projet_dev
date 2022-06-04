@@ -4,22 +4,11 @@ import pygame
 from models.projectile import Projectile
 
 
-# TODO : Ajouter les attributs suivant (définir une valeur nulle (0, 0.0, "" ou false selon le type) dans le constructeur)
-# vitesse de rotation ==> INT OU FLOAT
-# une vitesse de déplacement ==> INT OU FLOAT
-# des points de vie ==> INT OU FLOAT
-# une puissance de tir ==> INT OU FLOAT
-# un délai de tir ==> INT OU FLOAT
-# une vitesse de projectile ==> INT OU FLOAT
-# Position (x, y)
-
-
-# TODO : Trouver les images pour le joueur, les projectiles, etc...
-
-
 class Player(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, id : int):
         super().__init__()
+        # id pour différencier le joueur 1 et 2 (et 3, 4 si besoin)
+        self.id = id
         self.v_rotation = 4.0
         self.velocity = 3
         self.health = 100
@@ -29,21 +18,33 @@ class Player(pygame.sprite.Sprite):
         self.speed_shoot = 10
         self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.transform.scale(
-            pygame.image.load('assets/player2.png'), (90, 58))
+            pygame.image.load('assets/player' + str(self.id) + '.png'), (90, 58))
         self.rect = self.image.get_rect()
         # map to check the pressed button
         self.pressed = {}
-
-
+        self.angle = 0
+        
+        # On s'en fou de ça, c'est juste pour positionner le joueur 2 autre part que dans le mm emplacement que le j1 
+        if id == 2 :
+            self.image = self.rotate(self.image, 180)
+            self.rect.x = 500
+            self.rect.y = 500
+            
+        
+    def rotate(self, image : pygame.Surface, angle : int):
+        """Fonction qui va changer la rotation du joueur. Met à jour l'angle actuel du joueur (utile pour les projectiles par exemple)""" 
+        self.angle = angle
+        return pygame.transform.rotate(image, angle)
+    
+    
     def launchProjectile(self) : 
+        """Ajoute un projectile"""
+        # TODO : Enlever les projectiles quand le projectile sort de l'écran
         self.all_projectiles.add(Projectile(self))
 
 
-        
-        
-        
-
     def updatePos(self, screen):
+        """Fonction qui va mettre à jour la position du joueur (en fonction des touches enfoncée)"""
         print(self.pressed)
         # if the right button are pressed (et les bords tu check aussi tu connais)
         if self.pressed.get(pygame.K_RIGHT) and self.rect.x + self.rect.width < screen.get_width():

@@ -15,6 +15,7 @@ class Setup(object):
     
     
     def start(self):
+        # SI TU VEUX JOUER LE JOUEUR 2 ECHANGE JUSTE LE NOM DES VARIABLES
         player2 = Player(1)
         player = Player(2)
         bg = pygame.image.load("assets/bg.jpg")

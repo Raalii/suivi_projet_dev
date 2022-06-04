@@ -19,62 +19,78 @@ class Player(pygame.sprite.Sprite):
         self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.transform.scale(
             pygame.image.load('assets/player' + str(self.id) + '.png'), (90, 58))
+        self.original_image = self.image.convert_alpha()
+        
         self.rect = self.image.get_rect()
         # map to check the pressed button
         self.pressed = {}
-        self.angle = 0
-        
+        self.angle = 0    
         # On s'en fou de ça, c'est juste pour positionner le joueur 2 autre part que dans le mm emplacement que le j1 
         if id == 2 :
-            self.image = self.rotate(self.image, 180)
+            self.rot_center(180)
             self.rect.x = 500
             self.rect.y = 500
-            
         
-    def rotate(self, image : pygame.Surface, angle : int):
-        """Fonction qui va changer la rotation du joueur. Met à jour l'angle actuel du joueur (utile pour les projectiles par exemple)""" 
-        self.angle = angle
-        return pygame.transform.rotate(image, angle)
+            
     
     
-    def launchProjectile(self) : 
+    
+    def launch_projectile(self) : 
         """Ajoute un projectile"""
         # TODO : Enlever les projectiles quand le projectile sort de l'écran
         self.all_projectiles.add(Projectile(self))
 
 
-    def updatePos(self, screen):
+    def update_pos(self, screen):
         """Fonction qui va mettre à jour la position du joueur (en fonction des touches enfoncée)"""
         print(self.pressed)
         # if the right button are pressed (et les bords tu check aussi tu connais)
         if self.pressed.get(pygame.K_RIGHT) and self.rect.x + self.rect.width < screen.get_width():
-            self.moveRight()
+            self.move_right()
             
         # flemme de commenter
         if self.pressed.get(pygame.K_LEFT) and self.rect.x > 0:
-            self.moveLeft()
+            self.move_left()
             
         # flemme de commenter mais pareil
         if self.pressed.get(pygame.K_UP) and self.rect.y > 0:
-            self.moveUp()
+            self.move_up()
             
         # flemme de commenter  
         if self.pressed.get(pygame.K_DOWN) and self.rect.y + self.rect.height < screen.get_height():
-            self.moveDown()
+            self.move_down()
 
+        
+        # Touche pour checker la rotation
+        if self.pressed.get(pygame.K_x):
+            self.rot_center(self.angle + 1)
+            
+        # Pareil mais de l'autre côté 
+        if self.pressed.get(pygame.K_c):
+            self.rot_center(self.angle - 1)
+            
+            
+    def rot_center(self, angle):
+        self.angle = angle
 
-    def moveRight(self):
+        self.image = pygame.transform.rotate(self.original_image, self.angle)
+        self.rect = self.image.get_rect(center=self.rect.center)
+
+    def move_right(self):
         print("Déplacement vers la droite")
         self.rect.x += self.velocity
 
-    def moveLeft(self):
+    def move_left(self):
         print("Déplacement vers la gauche")
         self.rect.x -= self.velocity
 
-    def moveUp(self):
+    def move_up(self):
         print("Déplacement vers le haut")
         self.rect.y -= self.velocity
 
-    def moveDown(self):
+    def move_down(self):
         print("Déplacement vers le bas")
         self.rect.y += self.velocity
+    
+    
+    

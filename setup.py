@@ -30,7 +30,7 @@ class Setup(object):
                 projectile.move()
             
             player.all_projectiles.draw(self.screen)
-            player.updatePos(self.screen)
+            player.update_pos(self.screen)
             
             # Todo : change the event with the controllers (rasberry)
             for event in pygame.event.get():
@@ -38,7 +38,7 @@ class Setup(object):
                     player.pressed[event.key] = True
                     
                     if event.key == pygame.K_SPACE : 
-                        player.launchProjectile()
+                        player.launch_projectile()
                     
                 elif event.type == pygame.KEYUP:
                     player.pressed[event.key] = False

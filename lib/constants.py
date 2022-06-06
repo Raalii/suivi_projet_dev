@@ -1,0 +1,4 @@
+SCREEN_CONFIG = {
+    'WIDTH' : 1500, 
+    'HEIGHT' : 1000
+}

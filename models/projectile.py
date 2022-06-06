@@ -1,4 +1,6 @@
 import math
+from lib.constants import SCREEN_CONFIG
+from lib.lib import Lib
 import pygame
 
 # from models.player import Player
@@ -8,6 +10,7 @@ class Projectile(pygame.sprite.Sprite):
         super().__init__()
         # J'utilise l'id aussi pour checker les collisions (genre si l'id du projectile est différent de l'id du joueur touché par ex ==> tir ennemi)
         self.id = player.id
+        self.player = player
         self.angle = player.angle
         self.velocity = 5
         self.image = pygame.image.load('assets/projectile.png')
@@ -28,3 +31,15 @@ class Projectile(pygame.sprite.Sprite):
         self.rect.x += int(dx)
         self.rect.y -= int(dy)
         
+        if self.is_not_in_screen() : 
+            self.kill()
+            
+        if Lib.check_colliders(self, self.player.game.player1_group if self.id == 2 else self.player.game.player2_group) : 
+            print("COLLISIONS AVEC LE JOUEUR ADVERSE")
+            # self.kill()
+            # return True
+        
+        
+    
+    def is_not_in_screen(self) : 
+        return self.rect.x < 0 or self.rect.x > SCREEN_CONFIG['WIDTH'] or self.rect.y < 0 or self.rect.y > SCREEN_CONFIG['HEIGHT'] 

@@ -47,12 +47,17 @@ class Game(object):
                 
             # self.check_projectiles_colliders()
             
+
             self.player.update_pos(self.screen)
+            self.player.health_bar(self.screen)
+            self.player2.update_pos(self.screen)
+            self.player2.health_bar(self.screen)
             
             # Todo : change the event with the controllers (rasberry)
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     self.player.pressed[event.key] = True
+        
                     
                     if event.key == pygame.K_SPACE : 
                         self.player.launch_projectile()

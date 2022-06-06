@@ -20,24 +20,27 @@ class Projectile(pygame.sprite.Sprite):
         # TODO : modifier pour que la balle sort du gun
         self.rect.x = player.rect.centerx
         self.rect.y = player.rect.centery
-        
+    
+    def remove(self):
+        self.player.all_projectiles.remove(self)
           
     def move(self) : 
         angle_in_radians = math.radians(self.angle)
         
         # Formule trigonométrique
         dy = math.sin(angle_in_radians) * self.velocity
-        dx = math.cos(angle_in_radians) * self.velocity     
+        dx = math.cos(angle_in_radians) * self.velocity
         self.rect.x += int(dx)
         self.rect.y -= int(dy)
         
         if self.is_not_in_screen() : 
             self.kill()
             
-        if Lib.check_colliders(self, self.player.game.player1_group if self.id == 2 else self.player.game.player2_group) : 
+        for player in Lib.check_colliders(self, self.player.game.player2_group) : 
             print("COLLISIONS AVEC LE JOUEUR ADVERSE")
-            # self.kill()
+            self.remove()
             # return True
+            player.damage(self.player.power_shoot)
         
         
     

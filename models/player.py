@@ -12,8 +12,8 @@ class Player(pygame.sprite.Sprite):
         self.game = game
         # id pour différencier le joueur 1 et 2 (et 3, 4 si besoin)
         self.id = id
-        self.v_rotation = 4.0
-        self.velocity = 3
+        self.v_rotation = 8.0
+        self.velocity = 6
         self.health = 100
         self.max_health = 100
         self.power_shoot = 5
@@ -33,6 +33,23 @@ class Player(pygame.sprite.Sprite):
             self.rot_center(180)
             self.rect.x = 500
             self.rect.y = 500
+    
+    def damage(self, amount):
+        self.health -= amount
+
+        if self.health <= 0:
+            self.rect.x = 1000
+            self.health = self.max_health
+
+    def health_bar(self, surface):
+        color_health = (111, 210, 46)
+        back_color_health = (60, 60, 60)
+
+        bar_position =[self.rect.x , self.rect.y , self.health, 5]
+        back_bar_position = [self.rect.x , self.rect.y , self.max_health, 5]
+
+        pygame.draw.rect(surface, back_color_health, back_bar_position)
+        pygame.draw.rect(surface, color_health, bar_position)
     
     
     def launch_projectile(self) : 

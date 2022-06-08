@@ -16,6 +16,7 @@ class Game(object):
         self.player2 = Player(2, self)
         self.player1_group = pygame.sprite.Group(self.player)
         self.player2_group = pygame.sprite.Group(self.player2)
+        self.clock = pygame.time.Clock()
 
     
     def start(self) :
@@ -29,6 +30,7 @@ class Game(object):
         self.screen.blit(self.player.image, self.player.rect)
         self.screen.blit(self.player2.image, self.player2.rect)
         self.player.all_projectiles.draw(self.screen) 
+    
     
     def running(self) :
         # SI TU VEUX JOUER LE JOUEUR 2 ECHANGE JUSTE LE NOM DES VARIABLES
@@ -47,7 +49,7 @@ class Game(object):
                 
             # self.check_projectiles_colliders()
             
-
+            # print(len(self.player.all_projectiles))
             self.player.update_pos(self.screen)
             self.player.health_bar(self.screen)
             self.player2.update_pos(self.screen)
@@ -57,7 +59,7 @@ class Game(object):
             for event in pygame.event.get():
                 if event.type == pygame.KEYDOWN:
                     self.player.pressed[event.key] = True
-        
+                    # self.player2.pressed[event.key] = True
                     
                     if event.key == pygame.K_SPACE : 
                         self.player.launch_projectile()
@@ -67,7 +69,7 @@ class Game(object):
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()    
-            # clock.tick(30)  # Afficher à 30 fps le jeu
+            self.clock.tick(144)  # Afficher à 30 fps le jeu
             pygame.display.flip()    
     
     

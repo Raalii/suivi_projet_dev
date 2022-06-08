@@ -21,8 +21,13 @@ class Projectile(pygame.sprite.Sprite):
         self.rect.x = player.rect.centerx
         self.rect.y = player.rect.centery
     
+    def __del__(self) : 
+        print("DESTRUCTION DE L'OBJET")    
+        
+          
     def remove(self):
         self.player.all_projectiles.remove(self)
+    
           
     def move(self) : 
         angle_in_radians = math.radians(self.angle)
@@ -30,8 +35,8 @@ class Projectile(pygame.sprite.Sprite):
         # Formule trigonométrique
         dy = math.sin(angle_in_radians) * self.velocity
         dx = math.cos(angle_in_radians) * self.velocity
-        self.rect.x += int(dx)
-        self.rect.y -= int(dy)
+        self.rect.x += dx
+        self.rect.y -= dy
         
         if self.is_not_in_screen() : 
             self.kill()
@@ -40,7 +45,7 @@ class Projectile(pygame.sprite.Sprite):
             print("COLLISIONS AVEC LE JOUEUR ADVERSE")
             self.remove()
             # return True
-            player.damage(self.player.power_shoot)
+            player.damage(self.player.game.player2.power_shoot if self.id == 1 else self.player.game.player.power_shoot)
         
         
     

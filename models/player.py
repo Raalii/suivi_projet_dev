@@ -33,6 +33,7 @@ class Player(pygame.sprite.Sprite):
             self.rot_center(180)
             self.rect.x = 500
             self.rect.y = 500
+            self.power_shoot = 10
     
     def damage(self, amount):
         self.health -= amount
@@ -56,6 +57,8 @@ class Player(pygame.sprite.Sprite):
         """Ajoute un projectile""" 
         self.all_projectiles.add(Projectile(self))
 
+
+
     def update_pos(self, screen):
         """Fonction qui va mettre à jour la position du joueur (en fonction des touches enfoncée)"""
         # print(self.pressed)
@@ -74,6 +77,10 @@ class Player(pygame.sprite.Sprite):
         # flemme de commenter  
         if self.pressed.get(pygame.K_DOWN) and self.rect.y + self.rect.height < screen.get_height():
             self.move_down()
+            
+            
+        # if self.pressed.get(pygame.K_SPACE):
+        #     self.launch_projectile()
 
         
         # Touche pour checker la rotation

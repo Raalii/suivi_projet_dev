@@ -45,7 +45,7 @@ class Projectile(pygame.sprite.Sprite):
             print("COLLISIONS AVEC LE JOUEUR ADVERSE")
             self.remove()
             # return True
-            player.damage(self.player.game.player2.power_shoot if self.id == 1 else self.player.game.player.power_shoot)
+            player.damage(self.player.game.player2.power_shoot if self.id == 2 else self.player.game.player.power_shoot)
         
         
     

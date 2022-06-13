@@ -16,7 +16,7 @@ class Player(pygame.sprite.Sprite):
         self.velocity = 6
         self.health = 100
         self.max_health = 100
-        self.power_shoot = 5
+        self.power_shoot = 110
         self.cooldown = 0.80
         self.speed_shoot = 10
         self.all_projectiles = pygame.sprite.Group()
@@ -34,6 +34,8 @@ class Player(pygame.sprite.Sprite):
             self.rect.x = 500
             self.rect.y = 500
             self.power_shoot = 10
+            self.health = 400
+            self.max_health = 400
     
     def damage(self, amount):
         self.health -= amount
@@ -46,8 +48,8 @@ class Player(pygame.sprite.Sprite):
         color_health = (111, 210, 46)
         back_color_health = (60, 60, 60)
 
-        bar_position =[self.rect.x , self.rect.y , self.health, 5]
-        back_bar_position = [self.rect.x , self.rect.y , self.max_health, 5]
+        bar_position =[self.rect.x , self.rect.y , self.health / self.max_health * 100 , 5] # use formular to percent
+        back_bar_position = [self.rect.x , self.rect.y , 100, 5] # use 100 to percent
 
         pygame.draw.rect(surface, back_color_health, back_bar_position)
         pygame.draw.rect(surface, color_health, bar_position)

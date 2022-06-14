@@ -9,18 +9,18 @@ from models.projectile import Projectile
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, id: int, game):
+    def __init__(self, id, v_rotation, velocity, health, power_shoot, cooldown, speed_shoot, game):
         super().__init__()
         self.game = game
         # id pour différencier le joueur 1 et 2 (et 3, 4 si besoin)
         self.id = id
-        self.v_rotation = 8.0
-        self.velocity = 6
-        self.health = 100
-        self.max_health = 100
-        self.power_shoot = 110
-        self.cooldown = 0.80
-        self.speed_shoot = 10
+        self.v_rotation = v_rotation
+        self.velocity = velocity
+        self.health = health
+        self.max_health = health
+        self.power_shoot = power_shoot
+        self.cooldown = cooldown
+        self.speed_shoot = speed_shoot
         self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.transform.scale(
             pygame.image.load('assets/player' + str(self.id) + '.png'), (90, 58))

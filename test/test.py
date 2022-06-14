@@ -81,6 +81,11 @@ while running:
                     DOWN = True
                 else:
                     DOWN = False
+                # Triggers
+            if analog_keys[4] > 0:  # Left trigger
+                color += 2
+            if analog_keys[5] > 0:  # Right Trigger
+                color -= 2
 
 
 

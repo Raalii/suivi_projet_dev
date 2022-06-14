@@ -1,9 +1,15 @@
 # Objet du joueur
 # from models.game import Game
 from lib.lib import Lib
-import pygame
+import pygame, json, os
 
 from models.projectile import Projectile
+
+with open(os.path.join("keys.json"), 'r+') as file:
+    button_keys = json.load(file)
+# 0: Left analog horizonal, 1: Left Analog Vertical, 2: Right Analog Horizontal
+# 3: Right Analog Vertical 4: Left Trigger, 5: Right Trigger
+analog_keys = {0:0, 1:0, 2:0, 3:0, 4:-1, 5: -1 }
 
 
 class Player(pygame.sprite.Sprite):
@@ -65,19 +71,19 @@ class Player(pygame.sprite.Sprite):
         """Fonction qui va mettre à jour la position du joueur (en fonction des touches enfoncée)"""
         # print(self.pressed)
         # if the right button are pressed (et les bords tu check aussi tu connais)
-        if self.pressed.get(pygame.K_RIGHT) and self.rect.x + self.rect.width < screen.get_width():
+        if (self.pressed.get(pygame.K_RIGHT) or self.pressed.get[button_keys['right_arrow']]) and self.rect.x + self.rect.width < screen.get_width():
             self.move_right()
             
         # flemme de commenter
-        if self.pressed.get(pygame.K_LEFT) and self.rect.x > 0:
+        if (self.pressed.get(pygame.K_LEFT) or self.pressed.get[button_keys['left_arrow']]) and self.rect.x > 0:
             self.move_left()
             
         # flemme de commenter mais pareil
-        if self.pressed.get(pygame.K_UP) and self.rect.y > 0:
+        if (self.pressed.get(pygame.K_UP) or self.pressed.get[button_keys['up_arrow']]) and self.rect.y > 0:
             self.move_up()
             
         # flemme de commenter  
-        if self.pressed.get(pygame.K_DOWN) and self.rect.y + self.rect.height < screen.get_height():
+        if (self.pressed.get(pygame.K_DOWN) or self.pressed.get[button_keys['down_arrow']]) and self.rect.y + self.rect.height < screen.get_height():
             self.move_down()
             
             

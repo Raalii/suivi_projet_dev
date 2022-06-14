@@ -4,6 +4,15 @@ from models.player import Player
 import pygame
 
 
+joysticks = []
+for i in range(pygame.joystick.get_count()):
+    joysticks.append(pygame.joystick.Joystick(i))
+for joystick in joysticks:
+    joystick.init()
+
+
+
+
 class Game(object):
     def __init__(self, *args):
         # Initialising of the basics pygame parametters
@@ -57,6 +66,17 @@ class Game(object):
             
             # Todo : change the event with the controllers (rasberry)
             for event in pygame.event.get():
+                
+######################################  TEST FOR BLUETOOTH ###############################################
+
+                if event.type == pygame.JOYBUTTONDOWN:
+                    self.player.pressed[event.button] = True
+                # HANDLES BUTTON RELEASES
+                if event.type == pygame.JOYBUTTONUP:
+                    self.player.pressed[event.button] = True
+                        
+#################################################################################################
+                
                 if event.type == pygame.KEYDOWN:
                     self.player.pressed[event.key] = True
                     # self.player2.pressed[event.key] = True

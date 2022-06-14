@@ -1,17 +1,15 @@
 from typing import Any
 from lib.constants import SCREEN_CONFIG
 from models.player import Player
-import pygame
-
-
-joysticks = []
-for i in range(pygame.joystick.get_count()):
-    joysticks.append(pygame.joystick.Joystick(i))
-for joystick in joysticks:
-    joystick.init()
+import pygame, json, os
 
 
 
+with open(os.path.join("keys.json"), 'r+') as file:
+    button_keys = json.load(file)
+# 0: Left analog horizonal, 1: Left Analog Vertical, 2: Right Analog Horizontal
+# 3: Right Analog Vertical 4: Left Trigger, 5: Right Trigger
+analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
 
 class Game(object):
     def __init__(self, *args):
@@ -26,6 +24,12 @@ class Game(object):
         self.player1_group = pygame.sprite.Group(self.player)
         self.player2_group = pygame.sprite.Group(self.player2)
         self.clock = pygame.time.Clock()
+        joysticks = []
+        for i in range(pygame.joystick.get_count()):
+            joysticks.append(pygame.joystick.Joystick(i))
+        for joystick in joysticks:
+            joystick.init()
+
 
     
     def start(self) :
@@ -74,6 +78,31 @@ class Game(object):
                 # HANDLES BUTTON RELEASES
                 if event.type == pygame.JOYBUTTONUP:
                     self.player.pressed[event.button] = True
+                if event.type == pygame.JOYAXISMOTION:
+                    analog_keys[event.axis] = event.value
+                    # print(analog_keys)
+                    # Horizontal Analog
+                    if abs(analog_keys[0]) > .4:
+                        if analog_keys[0] < -.7:
+                            self.player.pressed[pygame.K_LEFT] = True
+                        else:
+                            self.player.pressed[pygame.K_LEFT] = False
+                        if analog_keys[0] > .7:
+                            self.player.pressed[pygame.K_RIGHT] = True
+                        else:
+                            self.player.pressed[pygame.K_RIGHT] = False
+                            # RIGHT = False
+                    # Vertical Analog
+                    if abs(analog_keys[1]) > .4:
+                        if analog_keys[1] < -.7:
+                            self.player.pressed[pygame.K_UP] = True
+                        else:
+                            self.player.pressed[pygame.K_UP] = False
+                            
+                        if analog_keys[1] > .7:
+                            self.player.pressed[pygame.K_DOWN] = True
+                        else:
+                            self.player.pressed[pygame.K_DOWN] = False
                         
 #################################################################################################
                 

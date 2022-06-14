@@ -5,8 +5,8 @@ import pygame, json, os
 
 
 
-with open(os.path.join("keys.json"), 'r+') as file:
-    button_keys = json.load(file)
+# with open(os.path.join("keys.json"), 'r+') as file:
+#     button_keys = json.load(file)
 # 0: Left analog horizonal, 1: Left Analog Vertical, 2: Right Analog Horizontal
 # 3: Right Analog Vertical 4: Left Trigger, 5: Right Trigger
 analog_keys = {0: 0, 1: 0, 2: 0, 3: 0, 4: -1, 5: -1}
@@ -118,7 +118,7 @@ class Game(object):
                 if event.type == pygame.QUIT:
                     running = False
                     pygame.quit()    
-            self.clock.tick(144)  # Afficher à 30 fps le jeu
+            self.clock.tick(60)  # Afficher à 30 fps le jeu
             pygame.display.flip()    
     
     

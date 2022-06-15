@@ -106,7 +106,7 @@ class Player(pygame.sprite.Sprite):
             self.rot_center(self.angle + self.v_rotation)
 
         # Pareil mais de l'autre côté
-        if self.pressed.get(pygame.K_c  or self.pressed.get(self.boutons_ps4_controllers["R1"])):
+        if self.pressed.get(pygame.K_c) or self.pressed.get(self.boutons_ps4_controllers["R1"]):
             self.rot_center(self.angle - self.v_rotation)
 
     def rot_center(self, angle):

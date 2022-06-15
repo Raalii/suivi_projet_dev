@@ -129,6 +129,7 @@ class Game(object):
         self.screen.blit(self.player.image, self.player.rect)
         self.screen.blit(self.player2.image, self.player2.rect)
         self.player.all_projectiles.draw(self.screen) 
+        self.player2.all_projectiles.draw(self.screen) 
         self.player.health_bar(self.screen)
         self.player2.health_bar(self.screen)
     

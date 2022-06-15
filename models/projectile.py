@@ -41,7 +41,7 @@ class Projectile(pygame.sprite.Sprite):
         if self.is_not_in_screen() : 
             self.kill()
             
-        for player in Lib.check_colliders(self, self.game.player2_group if self.id == 1 else self.game.player1_group) : 
+        for player in Lib.check_colliders(self, self.player.game.player2_group if self.id == 1 else self.player.game.player1_group) : 
             print("COLLISIONS AVEC LE JOUEUR ADVERSE")
             self.remove()
             # return True

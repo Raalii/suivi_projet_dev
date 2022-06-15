@@ -179,7 +179,7 @@ class Game(object):
                 self.player2.pressed[event.button] = True
             # HANDLES BUTTON RELEASES
             if event.type == pygame.JOYBUTTONUP:
-                self.player2.pressed[event.button] = True
+                self.player2.pressed[event.button] = False
             if event.type == pygame.JOYAXISMOTION:
                 analog_keys[event.axis] = event.value
                 # print(analog_keys)

@@ -148,7 +148,6 @@ class Game(object):
     # . render for the game    
     def game_render(self) :      
         self.render()
-
     
         for projectile in self.player.all_projectiles :
             if projectile.move() : 
@@ -158,55 +157,58 @@ class Game(object):
                 self.global_render['end_game_menu'] = True
                 self.setup.store_score(self.score, self.winner)
                 self.setup.get_best_score()
+                
+                
+        for projectile in self.player2.all_projectiles :
+            if projectile.move() : 
+                self.winner = self.player2_name
+                self.score = self.get_score(self.player2, self.player)
+                self.global_render['game'] = False
+                self.global_render['end_game_menu'] = True
+                self.setup.store_score(self.score, self.winner)
+                self.setup.get_best_score()
+                
         
         self.player.update_pos(self.screen)
         self.player2.update_pos(self.screen)
-        # events = pygame.event.get()
-        
-        
-        
+
         for event in pygame.event.get():
 
             if event.type == pygame.JOYBUTTONDOWN:
-                self.player.pressed[event.button] = True
+                self.player2.pressed[event.button] = True
             # HANDLES BUTTON RELEASES
             if event.type == pygame.JOYBUTTONUP:
-                self.player.pressed[event.button] = True
+                self.player2.pressed[event.button] = True
             if event.type == pygame.JOYAXISMOTION:
                 analog_keys[event.axis] = event.value
                 # print(analog_keys)
                 # Horizontal Analog
                 if abs(analog_keys[0]) > .4:
                     if analog_keys[0] < -.7:
-                        self.player.pressed[pygame.K_LEFT] = True
+                        self.player2.pressed[pygame.K_LEFT] = True
                     else:
-                        self.player.pressed[pygame.K_LEFT] = False
+                        self.player2.pressed[pygame.K_LEFT] = False
                     if analog_keys[0] > .7:
-                        self.player.pressed[pygame.K_RIGHT] = True
+                        self.player2.pressed[pygame.K_RIGHT] = True
                     else:
-                        self.player.pressed[pygame.K_RIGHT] = False
+                        self.player2.pressed[pygame.K_RIGHT] = False
                         # RIGHT = False
                 # Vertical Analog
                 if abs(analog_keys[1]) > .4:
                     if analog_keys[1] < -.7:
-                        self.player.pressed[pygame.K_UP] = True
+                        self.player2.pressed[pygame.K_UP] = True
                     else:
-                        self.player.pressed[pygame.K_UP] = False
+                        self.player2.pressed[pygame.K_UP] = False
                         
                     if analog_keys[1] > .7:
-                        self.player.pressed[pygame.K_DOWN] = True
+                        self.player2.pressed[pygame.K_DOWN] = True
                     else:
-                        self.player.pressed[pygame.K_DOWN] = False
+                        self.player2.pressed[pygame.K_DOWN] = False
                     
 #################################################################################################
             
             if event.type == pygame.KEYDOWN:
-                self.player.pressed[event.key] = True
-                
-                if event.key == pygame.K_SPACE : 
-                    self.player.launch_projectile()
-            
-                
+                self.player.pressed[event.key] = True                
             elif event.type == pygame.KEYUP:
                 self.player.pressed[event.key] = False
             if event.type == pygame.QUIT:
@@ -225,7 +227,7 @@ class Game(object):
         running = True
         # Closing window
         while running:
-            
+            print()
             for key in self.global_render : 
                 if self.global_render[key] :
                     self.global_render_function[key]()

@@ -21,6 +21,7 @@ class Player(pygame.sprite.Sprite):
         self.power_shoot = power_shoot
         self.cooldown = cooldown
         self.speed_shoot = speed_shoot
+        self.last_time_when_projectile_launch = 0.0
         self.all_projectiles = pygame.sprite.Group()
         self.image = pygame.transform.scale(
             pygame.image.load('assets/player' + str(self.id) + '.png'), (90, 58))
@@ -61,7 +62,10 @@ class Player(pygame.sprite.Sprite):
 
     def launch_projectile(self):
         """Ajoute un projectile"""
-        self.all_projectiles.add(Projectile(self))
+        if pygame.time.get_ticks() - self.last_time_when_projectile_launch >= self.cooldown * 1000 :
+            self.all_projectiles.add(Projectile(self))
+            self.last_time_when_projectile_launch = pygame.time.get_ticks()
+        
 
     def update_pos(self, screen):
         """Fonction qui va mettre à jour la position du joueur (en fonction des touches enfoncée)"""
@@ -70,28 +74,28 @@ class Player(pygame.sprite.Sprite):
         if self.pressed.get(pygame.K_RIGHT) and self.rect.x + self.rect.width < screen.get_width():
             self.move_right()
 
-        # flemme de commenter
+       
         if self.pressed.get(pygame.K_LEFT) and self.rect.x > 0:
             self.move_left()
 
-        # flemme de commenter mais pareil
+       
         if self.pressed.get(pygame.K_UP) and self.rect.y > 0:
             self.move_up()
 
-        # flemme de commenter
+        
         if self.pressed.get(pygame.K_DOWN) and self.rect.y + self.rect.height < screen.get_height():
             self.move_down()
 
-        # if self.pressed.get(pygame.K_SPACE):
-        #     self.launch_projectile()
+        if self.pressed.get(pygame.K_SPACE):
+            self.launch_projectile()
 
         # Touche pour checker la rotation
         if self.pressed.get(pygame.K_x):
-            self.rot_center(self.angle + 1)
+            self.rot_center(self.angle + self.v_rotation)
 
         # Pareil mais de l'autre côté
         if self.pressed.get(pygame.K_c):
-            self.rot_center(self.angle - 1)
+            self.rot_center(self.angle - self.v_rotation)
 
     def rot_center(self, angle):
         self.angle = angle

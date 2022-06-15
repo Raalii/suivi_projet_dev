@@ -43,9 +43,10 @@ class Player(pygame.sprite.Sprite):
         self.health -= amount
 
         if self.health <= 0:
-            self.rect.x = 1000
-            self.health = self.max_health
-
+            return True
+        return False
+        
+    
     def health_bar(self, surface):
         color_health = (111, 210, 46)
         back_color_health = (60, 60, 60)

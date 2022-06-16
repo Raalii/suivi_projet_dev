@@ -22,7 +22,7 @@ You have, in  the root project :
 ## A database to edit the stats of the player
 Need more speed or more power? You can customize your players's stats before playing. 
 **WARNING :** Raising your stats too much can significantly lower your score.
-[](./assets/readme/stat_joueur.png)
+[stat du joueur](./assets/readme/stat_joueur.png)
 
 
 

@@ -22,7 +22,7 @@ You have, in  the root project :
 ## A database to edit the stats of the player
 Need more speed or more power? You can customize your players's stats before playing. 
 **WARNING :** Raising your stats too much can significantly lower your score.
-[image du joueur](https://cdn.discordapp.com/attachments/857678338214199367/987126101434318908/stat_joueur.png)
+[image du joueur](./assets/readme/stat_joueur.png)
 
 
 

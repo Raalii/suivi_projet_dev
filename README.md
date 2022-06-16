@@ -12,7 +12,7 @@ Grand Shooter is a 2D shooting game where the goal of the game is to destroy the
 You have, in  the root project :
  - launch the terminal and type :
 	 -  `pip install -r ./requirements.txt` *install dependencies*
-	 -  ` <command_python ./setup.py>` *launch the game*
+	 -  ` <command_python> ./setup.py` *launch the game*
 
 
 ### How to play 
